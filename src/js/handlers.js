@@ -46,6 +46,7 @@ if(target.parentElement.className.indexOf("previewItem")>=0||target.className.in
   document.querySelector(".previewItem.active").className="previewItem"
   let index=target.parentElement.getAttribute("index")||target.getAttribute("index");
   document.querySelectorAll(".previewItem")[index].className="previewItem active"
+  document.querySelector(".viewer-artwork").querySelector("a").href=this.images[index].src.replaceAll("@!max",''); 
   this.view(index);
   
   return;

@@ -181,6 +181,7 @@ class Viewer {
     const button = viewer.querySelector(`.${NAMESPACE}-button`);
     const canvas = viewer.querySelector(`.${NAMESPACE}-canvas`);
     const preview = viewer.querySelector(`.${NAMESPACE}-preview`);
+    const artwork = viewer.querySelector(`.${NAMESPACE}-artwork`);
 
     this.parent = parent;
     this.viewer = viewer;
@@ -299,7 +300,8 @@ class Viewer {
       if(!options.hideClose){
         addClass(button, CLASS_CLOSE);
       }else{ 
-        preview.innerHTML=null;
+        preview.innerHTML=null; 
+        artwork.querySelector("a").href=this.images[0].src.replaceAll("@!max",'');
         if(this.images.length>1){ 
             this.images.forEach((img,i) => { 
       
@@ -316,7 +318,7 @@ class Viewer {
             preview.appendChild(div);
           }  
         }); 
-        }else{
+        }else{ 
          preview.parentElement.remove();
         }
         button.remove();

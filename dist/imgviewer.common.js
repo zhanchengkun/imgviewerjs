@@ -5,7 +5,7 @@
  * Copyright 2015-present zhan
  * Released under the MIT license
  *
- * Date: 2022-03-07T05:10:41.121Z
+ * Date: 2021-05-27T08:02:20.202Z
  */
 
 'use strict';
@@ -384,17 +384,17 @@ function forEach(data, callback) {
     if (Array.isArray(data) || isNumber(data.length)
     /* array-like */
     ) {
-      const {
-        length
-      } = data;
-      let i;
+        const {
+          length
+        } = data;
+        let i;
 
-      for (i = 0; i < length; i += 1) {
-        if (callback.call(data, data[i], i, data) === false) {
-          break;
+        for (i = 0; i < length; i += 1) {
+          if (callback.call(data, data[i], i, data) === false) {
+            break;
+          }
         }
-      }
-    } else if (isObject(data)) {
+      } else if (isObject(data)) {
       Object.keys(data).forEach(key => {
         callback.call(data, data[key], key, data);
       });
@@ -1284,6 +1284,7 @@ var handlers = {
       document.querySelector(".previewItem.active").className = "previewItem";
       let index = target.parentElement.getAttribute("index") || target.getAttribute("index");
       document.querySelectorAll(".previewItem")[index].className = "previewItem active";
+      document.querySelector(".viewer-artwork").querySelector("a").href = this.images[index].src.replaceAll("@!max", '');
       this.view(index);
       return;
     }
@@ -3082,6 +3083,7 @@ class Viewer {
     const button = viewer.querySelector(`.${NAMESPACE}-button`);
     const canvas = viewer.querySelector(`.${NAMESPACE}-canvas`);
     const preview = viewer.querySelector(`.${NAMESPACE}-preview`);
+    const artwork = viewer.querySelector(`.${NAMESPACE}-artwork`);
     this.parent = parent;
     this.viewer = viewer;
     this.title = title;
@@ -3189,6 +3191,7 @@ class Viewer {
         addClass(button, CLASS_CLOSE);
       } else {
         preview.innerHTML = null;
+        artwork.querySelector("a").href = this.images[0].src.replaceAll("@!max", '');
 
         if (this.images.length > 1) {
           this.images.forEach((img, i) => {
